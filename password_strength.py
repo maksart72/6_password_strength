@@ -1,26 +1,39 @@
 import re
-password = input('Please enter your password:')
+password = input('Введите пароль:')
 
 def get_password_strength(password):
     strength = 0
-    p1 = 0
-    p2 = 0
-    p3 = 0
-    p4 = 0
-    p5 = 0
-    p6 = 0
+    p1 = 1 #прописные
+    p2 = 1 #заглавные
+    p3 = 1 #цифры
+    p4 = 1 #символы
+    p5 = 0 #количество символов
+        
+    if re.search('[a-zа-я]', password) == None:
+        p1 = 0
     
+    if re.search('[A-ZА-Я]', password) == None:
+        p2 = 0
+
+    if re.search('[0-9]', password) == None:
+        p3 = 0
+
+    if re.search('[^A-zА-я0-9]', password) == None:
+        p4 = 0
+    
+    if re.search(' ',password) != None:
+        raise ValueError('Пробел запрещен!')
+ 
     passlen = len(password) // 3
     if passlen > 5:
-        p6 = 5
+        p5 = 6
     else: 
-        p6 = passlen
+        p5 = passlen
 
-    strength = p1+p2+p3+p4+p5+p6
+    strength = p1+p2+p3+p4+p5
     return(str(strength))
 
 if __name__ == '__main__':
-    if re.search('[a-z]', password) = None:
-        print('None')
-            
-        print('Your password strength is '+ get_password_strength(password))
+             
+    print('Оценка Вашего пароля: '+ get_password_strength(password))
+    print('1 – очень слабый пароль, 10 – очень крутой')

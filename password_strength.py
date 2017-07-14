@@ -1,38 +1,40 @@
 import re
-password = input('Введите пароль:')
-strength = 0
-p1 = 1 #прописные
-p2 = 1 #заглавные
-p3 = 1 #цифры
-p4 = 1 #символы
-p5 = 0 #количество символов
-
-if re.search('[a-zа-я]', password) == None:
-    p1 = 0
     
-if re.search('[A-ZА-Я]', password) == None:
-        p2 = 0
+def get_password_strength(password):
 
-if re.search('[0-9]', password) == None:
-        p3 = 0
+    strength = 0
+    is_small = 1 
+    is_caps = 1 
+    is_number = 1 
+    is_symbol = 1 
+    is_length = 0 
 
-if re.search('[^A-zА-я0-9]', password) == None:
-        p4 = 0
+    if re.search('[a-zа-я]', password) is None:
+        is_small = 0
     
-if re.search(' ',password) != None:
-    raise ValueError('Пробел запрещен!')
- 
-passlen = len(password) // 3
-if passlen > 5:
-    p5 = 6
-else: 
-    p5 = passlen
+    if re.search('[A-ZА-Я]', password) is None:
+        is_caps = 0
 
-def get_password_strength(p1,p2,p3,p4,p5):
-    strength = p1+p2+p3+p4+p5
+    if re.search('[0-9]', password) is None:
+        is_number = 0
+
+    if re.search('[^A-zА-я0-9]', password) is None:
+        is_symbol = 0
+
+    pass_length = len(password) // 3
+    if pass_length > 5:
+        is_length = 6
+    else: 
+        is_length = pass_length
+
+    strength = is_caps+is_length+is_small+is_number+is_symbol
     return(str(strength))
 
 if __name__ == '__main__':
-             
-    print('Оценка Вашего пароля: '+ get_password_strength(p1,p2,p3,p4,p5))
-    print('1 – очень слабый пароль, 10 – очень крутой')
+    print('')
+    password = input('Enter your password:')
+    if re.search(' ',password) is None:
+       print('The strength of your password is: '+ get_password_strength(password))
+       print('P.S. 1 – Password is very weak..., 10 – Password is very strong! ')
+    else:
+       raise ValueError('Error! Space is permitted')

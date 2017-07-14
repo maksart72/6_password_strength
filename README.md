@@ -1,8 +1,7 @@
 # Password Strength Calculator
 
-Программа вычисляет сложность введенного пользователем пароля
-Проверяется на наличие различных типов символов цифры, буквы прописные и заглавные, знаки и общее количество символов в пароле.
-Выводится исключение, если пароль содержит пробел.
+This program calculates the strenght of user password.
+It checks the lenght of password, is there are numbers, special characters, CAPS and small letters.
 
 # Project Goals
 
